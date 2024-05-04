@@ -27,12 +27,13 @@ def compute_cost(x: np.ndarray, y: np.ndarray, w: np.ndarray) -> float:
 
 def compute_gradient(x: np.ndarray, y: np.ndarray, w: np.ndarray):
     m, n = x.shape
-    gradient = np.zeros(n)
-    for i in range(m):
-        err = y_hat(x[i], w) - y[i]
-        for j in range(n):
-            gradient[j] += err * x[i][j]
-    return gradient / m
+    gradient_vector = np.zeros(n)
+    for component in range(n):
+        sum = 0
+        for i in range(m):
+            sum += (y_hat(x[i], w) - y[i]) * x[i][component]
+        gradient_vector[component] = sum / m
+    return gradient_vector
 
 
 def gradient_descent(
