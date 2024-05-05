@@ -1,20 +1,13 @@
 import copy
 import numpy as np
 
-X_train = np.array([[2104, 5, 1, 45], [1416, 3, 2, 40], [852, 2, 1, 35]])
-y_train = np.array([460, 232, 178])
-
-X_train = np.array([np.append(feature, 1) for feature in X_train])
-
-w_init = np.array([1.0, 1.0, 1.0, 1.0, 1.0])
-
 
 def y_hat(x: np.ndarray, w: np.ndarray) -> float:
     return np.dot(x, w)
 
 
 def compute_cost(x: np.ndarray, y: np.ndarray, w: np.ndarray) -> float:
-    m = X_train.shape[0]
+    m = x.shape[0]
     sum = 0
     for i in range(m):
         sum += (y_hat(x[i], w) - y[i]) ** 2
@@ -49,11 +42,15 @@ def gradient_descent(
     return cur_w, cost_history
 
 
-w, cost_history = gradient_descent(X_train, y_train, w_init, 5.0e-7, 1_000_000)
+# Driver code
+X_train = np.array([[2104, 5, 1, 45], [1416, 3, 2, 40], [852, 2, 1, 35]])
+y_train = np.array([460, 232, 178])
+X_train = np.array([np.append(feature, 1) for feature in X_train])
+w_init = np.array([1.0, 1.0, 1.0, 1.0, 1.0])
+
+w, cost_history = gradient_descent(X_train, y_train, w_init, 5.0e-7, 1000)
 print(f"w vector found: {w}")
-
 print()
-
 for i in range(len(X_train)):
     print("actual")
     print(y_train[i])
