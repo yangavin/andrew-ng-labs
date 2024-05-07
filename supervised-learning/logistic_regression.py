@@ -2,6 +2,7 @@ import numpy as np
 
 dataset = np.genfromtxt("data/ex2data1.csv", delimiter=",")
 x_train = dataset[:, :-1]
+x_train = np.array([np.append(example, 1) for example in x_train])
 y_train = dataset[:, -1]
 
 
