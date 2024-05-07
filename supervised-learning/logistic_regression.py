@@ -20,7 +20,7 @@ def y_hat(x: np.ndarray, w: np.ndarray):
     return sigmoid(np.dot(x, w))
 
 
-def compute_cost(x: np.ndarray, y: np.ndarray, w: np.ndarray):
+def compute_cost(x: np.ndarray, y: np.ndarray, w: np.ndarray) -> float:
     """
     Compute cost given a sample set (x, y) and coefficients for the equation (w)
     """
@@ -29,3 +29,17 @@ def compute_cost(x: np.ndarray, y: np.ndarray, w: np.ndarray):
     for i in range(m):
         sum += -y[i] * np.log(y_hat(x[i], w)) - (1 - y[i]) * np.log(1 - y_hat(x[i], w))
     return sum / m
+
+
+def compute_gradient(x: np.ndarray, y: np.ndarray, w: np.ndarray) -> np.ndarray:
+    """
+    Compute the gradient vector for a given cost function (w, y, w)
+    """
+    m, n = x.shape
+    gradient_vector = np.zeros(n)
+    for component in range(n):
+        sum = 0
+        for i in range(m):
+            sum += (y_hat(x[i], w) - y[i]) * x[i][component]
+        gradient_vector[component] = sum / m
+    return gradient_vector
