@@ -24,6 +24,5 @@ model = Sequential(
         Dense(units=1, activation="sigmoid"),
     ]
 )
-model.summary()
 model.compile(loss=BinaryCrossentropy(), metrics=["accuracy"])
 model.fit(X, y, epochs=20)
